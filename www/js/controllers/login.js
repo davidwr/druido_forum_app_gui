@@ -1,5 +1,9 @@
-app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', 
-  function ($scope, $http, $config, $ionicPopup, $timeout) {
+app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window) {
+
+    $scope.register = function() {
+      $window.location.assign('#/register');
+    }
 
   function showResetPasswordPopup () {
     $scope.data = {}

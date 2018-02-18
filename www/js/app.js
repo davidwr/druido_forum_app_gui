@@ -34,6 +34,12 @@ const app = angular.module('druido', ['ionic'])
     controller: 'LoginCtrl'
   })
 
+  .state('register', {
+    url: '/register',
+    templateUrl: 'views/register.html',
+    controller: 'RegisterCtrl'
+  })
+
   .state('tab', {
     url: '/tab',
     abstract: true,
