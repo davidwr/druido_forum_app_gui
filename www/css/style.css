@@ -1,1 +1,30 @@
-/* Empty. Add your own CSS if you like */
+.backgroud-druido {
+  background: #f4f3ec
+}
+
+.image-login {
+    display: block;
+    width: 40vw;
+    height: 40vw;
+    background: white;
+    -moz-border-radius: 20vw;
+    -webkit-border-radius: 20vw;
+    background-image: url(no.png);
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    margin-left: 26vw;
+    border: 1px solid #E6E7ED;
+}
+
+.register-button {
+  margin-top: 50vw !important;
+}
+
+.forget-password {
+  margin-left: 33vw;
+}
+
+.title-druido {
+  margin-top: 30vw;
+  margin-left: 18vw;
+}
