@@ -1,0 +1,14 @@
+{
+  "name": "druido_forum_app_gui",
+  "app_id": "",
+  "type": "ionic1",
+  "integrations": {
+    "gulp": {}
+  },
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}
