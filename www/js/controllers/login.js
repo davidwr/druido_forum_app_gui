@@ -25,21 +25,35 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
     });
 
     resetPasswordPopup.then(function (res) {
-      console.log(res)
+      if (!res) {
+        return
+      }
+
       $http({
         method: 'PUT', url: $config.host + 'forgot-password', data: {
           email: res
         }
       }).
         then(function (response) {
-          alert('Request OK: ' + response.data);
+          showAlertPopup('Success!', response.data);
         }, function (response) {
-          alert('Request failed: ' + response.data);
+          showAlertPopup('Error!', response.data);
         });
     });
 
     $timeout(function () {
       resetPasswordPopup.close();
+    }, 10000);
+  }
+
+  function showAlertPopup (title, message) {
+    var alertPopup = $ionicPopup.alert({
+      title: title,
+      template: message
+    });
+
+    $timeout(function () {
+      alertPopup.close();
     }, 10000);
   }
 
@@ -51,9 +65,9 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
       password: $scope.password
     }}).
       then(function (response) {
-        alert('Request OK: ' + response.data);
+        showAlertPopup('Success!', response.data);
       }, function (response) {
-        alert('Request failed: ' + response.data);
+        showAlertPopup('Error!', response.data);
       });
   };
 
