@@ -3,24 +3,24 @@
     <h1 class="title-druido">Registration</h1>
     <div class="list">
       <label class="item item-input item-register">
-        <input type="email" placeholder="E-mail">
+        <input type="email" placeholder="E-mail" ng-model="email"> 
       </label>
       <label class="item item-input item-register">
-        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Name" ng-model="name">
       </label>
       <label class="item item-input item-register">        
-        <input type="text" placeholder="Username">
+        <input type="text" placeholder="Username" ng-model="username">
       </label>
       <label class="item item-input item-register">
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password" ng-model="password">
       </label>
       <label class="item item-input item-register">
-        <input type="file" placeholder="Profile Picture"></input>
+        <input type="file" placeholder="Profile Picture" ng-model="image"></input>
       </label>
     </div>
 
     <div padding>
-      <button class="button button-block button-calm" block>Sign Up</button>
+      <button class="button button-block button-calm" block ng-click="register()">Sign Up</button>
     </div>
   </ion-content>
 </ion-view>

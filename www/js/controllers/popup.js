@@ -51,6 +51,7 @@ app.controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {
       }
     });
   };
+  
 
   // An alert dialog
   $scope.showAlert = function () {

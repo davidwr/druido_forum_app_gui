@@ -1,5 +1,6 @@
-app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window) {
+app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
+  'PopUpService', 'UserService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService) {
 
     $scope.register = function() {
       $window.location.assign('#/register');
@@ -39,9 +40,9 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
         }
       }).
         then(function (response) {
-          showAlertPopup('Success!', response.data);
+          popupService.showAlertPopup('Success!', response.data);
         }, function (response) {
-          showAlertPopup('Error!', response.data);
+          popupService.showAlertPopup('Error!', response.data);
         });
     });
 
@@ -50,18 +51,6 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
     }, 10000);
   }
 
-  function showAlertPopup (title, message) {
-    var alertPopup = $ionicPopup.alert({
-      title: title,
-      template: message
-    });
-
-    $timeout(function () {
-      alertPopup.close();
-    }, 10000);
-  }
-
-
   $scope.login = function () {
     $http({
       method: 'POST', url: $config.host + 'login', data: {
@@ -69,9 +58,11 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
       password: $scope.password
     }}).
       then(function (response) {
-        showAlertPopup('Success!', response.data);
+        userService.addUserLogged(response.data);
+        $window.location.assign('#/landing');
+        console.log('Success!' + 'Authenticated')
       }, function (response) {
-        showAlertPopup('Error!', response.data);
+        popupService.showAlertPopup('Error!', response.data);
       });
   };
 

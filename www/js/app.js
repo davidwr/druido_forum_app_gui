@@ -1,7 +1,7 @@
 const app = angular.module('druido', ['ionic'])
 
 .constant('CONFIG', {
-  host: 'http://localhost:3001/api/v1/'
+  host: 'http://ec2-18-220-34-186.us-east-2.compute.amazonaws.com:3001/api/v1/'
 })
 
 .run(function($ionicPlatform) {
@@ -30,14 +30,17 @@ const app = angular.module('druido', ['ionic'])
 
   .state('login', {
     url: '/login',
-    templateUrl: 'views/login.html',
-    controller: 'LoginCtrl'
+    templateUrl: 'views/login.html'
   })
 
   .state('register', {
     url: '/register',
-    templateUrl: 'views/register.html',
-    controller: 'RegisterCtrl'
+    templateUrl: 'views/register.html'
+  })
+
+  .state('landing', {
+    url: '/landing',
+    templateUrl: 'views/landing.html'
   })
 
   .state('tab', {

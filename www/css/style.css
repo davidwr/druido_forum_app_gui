@@ -16,8 +16,16 @@
     border: 1px solid #E6E7ED;
 }
 
-.register-button {
-  margin-top: 50vw !important;
+.image-user {
+    display: block;
+    width: 10vw;
+    height: 10vw;
+    background: white;
+    background-image: url(no.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border: 1px solid #E6E7ED;
+    border-radius: 50%;
 }
 
 .reset-password {
@@ -31,4 +39,17 @@
 
 .item-register {
   margin-bottom: 5vw;
+}
+
+.search-landing {
+  /* margin-top: 15vw; */
+}
+
+.bar-header {
+  margin-bottom: 10vw !important;
+}
+
+.box-posts {
+  height: 100vw;
+  border: 1px solid darkgray;
 }
