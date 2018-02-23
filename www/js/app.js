@@ -20,7 +20,7 @@ const app = angular.module('druido', ['ionic'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -30,17 +30,26 @@ const app = angular.module('druido', ['ionic'])
 
   .state('login', {
     url: '/login',
-    templateUrl: 'views/login.html'
+    templateUrl: 'views/login.html',
+    cache: false
   })
 
   .state('register', {
     url: '/register',
-    templateUrl: 'views/register.html'
+    templateUrl: 'views/register.html',
+    cache: false
   })
 
   .state('landing', {
     url: '/landing',
-    templateUrl: 'views/landing.html'
+    templateUrl: 'views/landing.html',
+    cache: false
+  })
+
+  .state('newpost', {
+    url: '/newpost',
+    templateUrl: 'views/new_post.html',
+    cache: false
   })
 
   .state('tab', {

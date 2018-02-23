@@ -1,5 +1,6 @@
-<ion-view hide-nav-bar="true">
-  <ion-content scroll="false" ng-controller="LandingCtrl" class="padding backgroud-druido" ng-init="initController()">
+<ion-view hide-nav-bar="true" ng-controller="LandingCtrl">
+  <ion-content scroll="false" ng-init="initController()"  class="padding backgroud-druido">
+    <div>
       <div class="bar bar-header">
         <img class="image-user" src="img/user.png"></img>
         <h1 class="title">{{data.name}}</h1>
@@ -9,7 +10,7 @@
       <div class="list list-inset">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="Search">
+          <input type="text" placeholder="Search" ng-model="searchPost">
         </label>
       </div>
       <br>
@@ -25,47 +26,16 @@
           </select>
         </div>
         <ion-scroll class="box-posts" direction="y" id="map_content">
-          <div class="item item-avatar">
+          <div class="item item-avatar" ng-repeat="post in posts | filter:searchPost">
             <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-          </div>
-          <div class="item item-avatar">
-            <img src="img/ionic.png">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
+            <h2>{{post.title}}</h2>
+            <p>{{getCategoryLabel(post.dd_category)}}</p>
           </div>
         </ion-scroll>
+      </div>
+      <ion-footer no-shadow>
+        <button class="button button-block button-balanced" ng-click="createPost()">Create Post</button>
+      </ion-footer>
       </div>
   </ion-content>
 </ion-view>

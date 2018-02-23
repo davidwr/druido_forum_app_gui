@@ -1,0 +1,28 @@
+<ion-view hide-nav-bar="true" ng-controller="NewPostCtrl">
+  <ion-content scroll="false" class="padding backgroud-druido" ng-init="initController()">
+    <div class="bar bar-header">
+      <img class="image-user" src="img/user.png"></img>
+      <h1 class="title">{{data.name}}</h1>
+      <button class="button icon ion-gear-a" ng-click="logout()"></button>
+    </div>
+    <br>
+    <br>
+    <div class="list">
+      <br>
+      <label class="item item-input item-register">
+        <input type="text" placeholder="Title" ng-model="data.title">
+      </label>
+      <br>
+      <label class="item item-input">
+        <textarea placeholder="Description" ng-model="data.description"></textarea>
+      </label>
+    </div>
+    <select class="col" ng-options="category as category.name for category in categories track by category.id" ng-model="data.category">
+    </select>
+    <div class="row">
+        <div class="col"><button class="button button-block button-assertive" ng-click="cancel()">Cancel</button></div>
+        <div class="col"></div>
+        <div class="col"><button class="button button-block button-balanced" ng-click="create()">Create</button></div>
+      </div>
+  </ion-content>
+</ion-view>

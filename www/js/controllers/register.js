@@ -3,7 +3,7 @@ app.controller('RegisterCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$ti
 
     $scope.register = function () {
       var dataSend = new FormData();
-      dataSend.append('image', $scope.image);
+      // dataSend.append('image', $scope.image);
       dataSend.append('username', $scope.username);
       dataSend.append('password', $scope.password);
       dataSend.append('name', $scope.name);
