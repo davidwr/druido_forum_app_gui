@@ -1,0 +1,38 @@
+<ion-view hide-nav-bar="true" ng-controller="CommentCtrl">
+  <ion-content scroll="false" ng-init="initController()" class="padding backgroud-druido">
+    <div>
+      <div class="bar bar-header">
+        <img class="image-user" src="img/user.png"></img>
+        <h1 class="title">{{data.name}}</h1>
+        <button class="button icon ion-gear-a" ng-click="logout()"></button>
+      </div>
+      <br>
+      <br>
+      <h1>Comments</h1>
+      <ion-scroll class="box-comments" direction="y" id="map_content">
+        <div class="list">
+          <a class="item item-avatar" href="#" ng-repeat="comment in comments">
+            <img src="img/user.png">
+            <h2>{{comment.name}}</h2>
+            <p>{{comment.message}}</p>
+            <i class="icon ion-ios7-telephone-outline" ng-click="vote(comment, true)">
+              <span class="badge badge-balanced icon-badge-up">{{comment.positives}}</span>
+            </i>
+            <i class="icon ion-ios7-telephone-outline" ng-click="vote(comment, false)">
+              <span class="badge badge-assertive icon-badge-down">{{comment.negatives}}</span>
+            </i>
+          </a>
+        </div>
+      </ion-scroll>
+      <br>
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Comment" ng-model="data.message">
+        </label>
+        <button class="button button-small" ng-click="comment()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

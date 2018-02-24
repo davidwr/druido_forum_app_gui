@@ -2,9 +2,9 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
   'PopUpService', 'UserService',
   function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService) {
 
-    $scope.register = function() {
-      $window.location.assign('#/register');
-    }
+  $scope.register = function() {
+    $window.location.assign('#/register');
+  }
 
   function showResetPasswordPopup () {
     $scope.data = {}
@@ -58,6 +58,8 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
       password: $scope.password
     }}).
       then(function (response) {
+        $window.localStorage.setItem('logged', 'true');
+        $window.localStorage.setItem('token', response.data.hash);
         userService.addUserLogged(response.data);
         $window.location.assign('#/landing');
         console.log('Success!' + 'Authenticated')
@@ -69,4 +71,8 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
   $scope.resetPassword = function () {    
     showResetPasswordPopup()
   };
+
+  if ($window.localStorage.getItem('logged') === 'true') {
+    $window.location.assign('#/landing');
+  }
 }])

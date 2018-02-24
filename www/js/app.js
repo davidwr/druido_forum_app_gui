@@ -52,6 +52,18 @@ const app = angular.module('druido', ['ionic'])
     cache: false
   })
 
+  .state('post', {
+    url: '/post',
+    templateUrl: 'views/post.html',
+    cache: false
+  })
+
+  .state('comment', {
+    url: '/comment',
+    templateUrl: 'views/comment.html',
+    cache: false
+  })
+
   .state('tab', {
     url: '/tab',
     abstract: true,

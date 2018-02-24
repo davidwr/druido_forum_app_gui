@@ -9,7 +9,6 @@
     background: white;
     -moz-border-radius: 20vw;
     -webkit-border-radius: 20vw;
-    background-image: url(no.png);
     background-position:50% 50%;
     background-repeat:no-repeat;
     margin-left: 26vw;
@@ -21,7 +20,6 @@
     width: 10vw;
     height: 10vw;
     background: white;
-    background-image: url(no.png);
     background-position: 50% 50%;
     background-repeat: no-repeat;
     border: 1px solid #E6E7ED;
@@ -50,10 +48,37 @@
 }
 
 .box-posts {
-  height: 100vw;
+  height: 80vw;
+  border: 1px solid darkgray;
+}
+
+.box-comments {
+  height: 65vh;
   border: 1px solid darkgray;
 }
 
 textarea {
-  height: 50vw;
+  height: 85vw;
+}
+
+.item-text-wrap {
+  height: 70vh;
+}
+
+.item .icon .icon-badge-up {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 13px;
+}
+
+.item .icon .icon-badge-down {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  font-size: 13px;
+}
+
+.scroll{
+  height:100% !important
 }

@@ -1,36 +1,9 @@
-app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 'PopUpService', 'UserService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService) {
+app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
+  'PopUpService', 'UserService', 'PostService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService, postService) {
     $scope.data = {};
-    var user = userService.getUserLogged()
-
-    $scope.create = function () {
-      var newPost = {
-        title: $scope.data.title,
-        description: $scope.data.description,
-        dd_category: $scope.data.category.id
-      }
-
-      console.log(newPost);
-
-      $http({
-        method: 'POST', url: $config.host + 'post/',
-        data: newPost,
-        headers: {
-          'token': $window.localStorage.getItem('token')
-        }
-      }).
-        then(function (response) {
-          $scope.posts = response.data
-          popupService.showAlertPopup('Success!', 'New post created!');
-          $window.location.assign('#/landing');
-        }, function (response) {
-          popupService.showAlertPopup('Error!', response.data);
-        });
-    }
-
-    $scope.cancel = function () {
-      $window.location.assign('#/landing');
-    }
+    var user = userService.getUserLogged();
+    var post = postService.getPostOpen();
 
     function getCategories() {
       $http({
@@ -46,14 +19,17 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
     }
 
     $scope.initController = function () {
-      console.log('Init NewPostCtrl');
+      console.log('Init PostCtrl');
       if ($window.localStorage.getItem('logged') !== 'true') {
         userService.resetUserLogged();
         $window.location.assign('#/login');
       }
       user = userService.getUserLogged();
-      $scope.data.name = user.name
-      getCategories()
+      post = postService.getPostOpen();
+      $scope.data.name = user.name;
+      $scope.data.title = post.title;
+      $scope.data.description = post.description;
+      getCategories();
     }
 
     $scope.logout = function () {
@@ -72,6 +48,10 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         }, function (response) {
           console.log('Error!' + JSON.stringify(response.data))
         });
+    }
+
+    $scope.openComments = function () {
+      $window.location.assign('#/comment');
     }
 
   }])

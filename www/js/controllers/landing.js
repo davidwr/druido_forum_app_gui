@@ -1,5 +1,6 @@
-app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 'PopUpService', 'UserService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService) {
+app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
+  'PopUpService', 'UserService', 'PostService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService, postService) {
 
     $scope.categories = []
     $scope.data = {}
@@ -22,7 +23,7 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       $http({
         method: 'GET', url: $config.host + 'post/',
         headers: {
-          'token': user.hash
+          'token': $window.localStorage.getItem('token')
         }
       }).
         then(function (response) {
@@ -37,11 +38,13 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       $http({
         method: 'GET', url: $config.host + 'logout/',
         headers: {
-          'token': user.hash
+          'token': $window.localStorage.getItem('token')
         }
       }).
         then(function (response) {
+          $window.localStorage.setItem('logged', 'false');
           userService.resetUserLogged();
+          $window.localStorage.removeItem('token');
           $window.location.assign('#/login');
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
@@ -64,13 +67,20 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       $window.location.assign('#/newpost');
     }
 
+    $scope.openPost = function (post) {
+      postService.addPostOpen(post);
+      $window.location.assign('#/post');
+    }
+
     $scope.initController = function () {
-      if (!user.name) {
+      console.log('Init LandingCtrl');
+      if ($window.localStorage.getItem('logged') !== 'true') {
+        userService.resetUserLogged();
         $window.location.assign('#/login');
       }
-      console.log(user);
-      $scope.data.name = user.name
-      getCategories()
-      getPosts()
+      user = userService.getUserLogged();
+      $scope.data.name = user.name;
+      getCategories();
+      getPosts();
     }
   }])

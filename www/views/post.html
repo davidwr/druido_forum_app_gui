@@ -1,0 +1,24 @@
+<ion-view hide-nav-bar="true" ng-controller="PostCtrl">
+  <ion-content scroll="false" class="padding backgroud-druido" ng-init="initController()">
+    <div class="bar bar-header">
+      <img class="image-user" src="img/user.png"></img>
+      <h1 class="title">{{data.name}}</h1>
+      <button class="button icon ion-gear-a" ng-click="logout()"></button>
+    </div>
+    <br>
+    <br>
+    
+    <div class="card">
+      <div class="item item-divider">
+        {{data.title}}
+      </div>
+      <div class="item item-text-wrap">
+        {{data.description}}
+      </div>
+      <div class="item item-divider">
+        <button ng-click="openComments()">Comments</button>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
