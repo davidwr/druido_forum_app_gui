@@ -17,12 +17,17 @@
         <textarea placeholder="Description" ng-model="data.description"></textarea>
       </label>
     </div>
-    <select class="col" ng-options="category as category.name for category in categories track by category.id" ng-model="data.category">
+    <select class="col" 
+      ng-options="category as category.name for category in categories track by category.id" 
+      ng-model="data.category">
     </select>
     <div class="row">
         <div class="col"><button class="button button-block button-assertive" ng-click="cancel()">Cancel</button></div>
         <div class="col"></div>
-        <div class="col"><button class="button button-block button-balanced" ng-click="create()">Create</button></div>
+        <div class="col">
+          <button ng-if="!isEdit()" class="button button-block button-balanced" ng-click="create()">Create</button>
+          <button ng-if="isEdit()" class="button button-block button-balanced" ng-click="edit()">Edit</button>
+        </div>
       </div>
   </ion-content>
 </ion-view>

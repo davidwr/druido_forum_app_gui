@@ -11,10 +11,10 @@
       <h1>Comments</h1>
       <ion-scroll class="box-comments" direction="y" id="map_content">
         <div class="list">
-          <a class="item item-avatar" href="#" ng-repeat="comment in comments">
-            <img src="img/user.png">
-            <h2>{{comment.name}}</h2>
-            <p>{{comment.message}}</p>
+          <a class="item item-avatar" href="" ng-repeat="comment in comments">
+            <img src="img/user.png" ng-click="editComment(comment)">
+            <h2 ng-click="editComment(comment)">{{comment.name}}</h2>
+            <p ng-click="editComment(comment)">{{comment.message}}</p>
             <i class="icon ion-ios7-telephone-outline" ng-click="vote(comment, true)">
               <span class="badge badge-balanced icon-badge-up">{{comment.positives}}</span>
             </i>
@@ -29,8 +29,11 @@
         <label class="item-input-wrapper">
           <input type="text" placeholder="Comment" ng-model="data.message">
         </label>
-        <button class="button button-small" ng-click="comment()">
+        <button ng-if="!checkEditPermission()" class="button button-small" ng-click="comment()">
           Submit
+        </button>
+        <button ng-if="checkEditPermission()" class="button button-small" ng-click="submitEditComment()">
+          Edit
         </button>
       </div>
     </div>

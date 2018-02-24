@@ -15,8 +15,14 @@
       <div class="item item-text-wrap">
         {{data.description}}
       </div>
-      <div class="item item-divider">
-        <button ng-click="openComments()">Comments</button>
+      <div class="row">
+        <div class="col">
+          <i class="icon ion-thumbsup"></i> {{data.likes}} <a href="" ng-click="like()">Like</a>   
+        </div>     
+        <div class="col"><button ng-click="openComments()">Comments</button></div>
+        <div class="col">
+          <button ng-if="checkEditPermission()" ng-click="editPost()">Edit</button>
+        </div>
       </div>
     </div>
 

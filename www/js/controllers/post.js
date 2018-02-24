@@ -1,9 +1,7 @@
 app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
-  'PopUpService', 'UserService', 'PostService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService, postService) {
+  'PopUpService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
     $scope.data = {};
-    var user = userService.getUserLogged();
-    var post = postService.getPostOpen();
 
     function getCategories() {
       $http({
@@ -21,14 +19,16 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
     $scope.initController = function () {
       console.log('Init PostCtrl');
       if ($window.localStorage.getItem('logged') !== 'true') {
-        userService.resetUserLogged();
+        $window.localStorage.clear();
         $window.location.assign('#/login');
       }
-      user = userService.getUserLogged();
-      post = postService.getPostOpen();
-      $scope.data.name = user.name;
-      $scope.data.title = post.title;
-      $scope.data.description = post.description;
+      $scope.data.name = $window.localStorage.getItem('user_name');
+      $scope.data.id = $window.localStorage.getItem('post_id');
+      $scope.data.title = $window.localStorage.getItem('post_title');
+      $scope.data.description = $window.localStorage.getItem('post_description');
+      $scope.data.likes = $window.localStorage.getItem('post_likes');
+      $scope.data.dd_user = $window.localStorage.getItem('post_dd_user');
+      $scope.data.dd_category = $window.localStorage.getItem('post_dd_category');
       getCategories();
     }
 
@@ -40,9 +40,7 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
         }
       }).
         then(function (response) {
-          $window.localStorage.setItem('logged', 'false');
-          userService.resetUserLogged();
-          $window.localStorage.removeItem('token');
+          $window.localStorage.clear();
           $window.location.assign('#/login');
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
@@ -52,6 +50,35 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
 
     $scope.openComments = function () {
       $window.location.assign('#/comment');
+    }
+
+    $scope.like = function () {
+      $http({
+        method: 'PUT', url: $config.host + 'like/',
+        headers: {
+          'token': $window.localStorage.getItem('token')
+        },
+        data: {
+          dd_user: $window.localStorage.getItem('user_id'),
+          dd_post: $scope.data.id,
+          liked: true
+        }
+      }).
+        then(function (response) {
+          $window.location.assign('#/landing');
+          console.log('Success!' + JSON.stringify(response.data))
+        }, function (response) {
+          console.log('Error!' + JSON.stringify(response.data))
+        });
+    }
+
+    $scope.checkEditPermission = function () {
+      return $scope.data.dd_user == $window.localStorage.getItem('user_id');
+    }
+
+    $scope.editPost = function () {
+      $window.localStorage.setItem('isEditPost', 'true');
+      $window.location.assign('#/newpost');
     }
 
   }])

@@ -1,13 +1,11 @@
 app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window',
-  'PopUpService', 'UserService', 'PostService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService, postService) {
+  'PopUpService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
     $scope.data = {};
-    var user = userService.getUserLogged()
-    var post = postService.getPostOpen()
 
-    function getComments() {
+    $scope.getComments = function () {
       $http({
-        method: 'GET', url: $config.host + 'comment/post/' + post.id,
+        method: 'GET', url: $config.host + 'comment/post/' + $window.localStorage.getItem('post_id'),
         headers: {
           'token': $window.localStorage.getItem('token')
         }
@@ -20,18 +18,6 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         });
     }
 
-    $scope.initController = function () {
-      console.log('Init CommentCtrl');
-      if ($window.localStorage.getItem('logged') !== 'true') {
-        userService.resetUserLogged();
-        $window.location.assign('#/login');
-      }
-      user = userService.getUserLogged();
-      post = postService.getPostOpen();
-      $scope.data.name = user.name;
-      getComments();
-    }
-
     $scope.logout = function () {
       $http({
         method: 'GET', url: $config.host + 'logout/',
@@ -40,9 +26,7 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         }
       }).
         then(function (response) {
-          $window.localStorage.setItem('logged', 'false');
-          $window.localStorage.removeItem('token');
-          userService.resetUserLogged();
+          $window.localStorage.clear();
           $window.location.assign('#/login');
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
@@ -58,12 +42,12 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         },
         data: {
           positive: relevance,
-          dd_user: user.id,
+          dd_user: $window.localStorage.getItem('user_id'),
           dd_comment: comment.id
         }
       }).
         then(function (response) {
-          $window.location.assign('#/comment');
+          $window.location.reload(true);
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
           console.log('Error!' + JSON.stringify(response.data))
@@ -73,8 +57,8 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
     $scope.comment = function () {
       var comment = {
         message: $scope.data.message,
-        dd_user: user.id,
-        dd_post: post.id
+        dd_user: $window.localStorage.getItem('user_id'),
+        dd_post: $window.localStorage.getItem('post_id')
       };
       $http({
         method: 'POST', url: $config.host + 'comment/',
@@ -84,11 +68,56 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         data: comment
       }).
         then(function (response) {
-          $window.location.assign('#/comment');
+          $scope.getComments();
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
           console.log('Error!' + JSON.stringify(response.data))
         });
     }
 
+    $scope.checkEditPermission = function () {
+      return $window.localStorage.getItem('isEditComment') == 'true';
+    }
+
+    $scope.editComment = function (comment) {
+      if (comment.dd_user == $window.localStorage.getItem('user_id')) {
+        $window.localStorage.setItem('isEditComment', 'true');
+        $scope.data.message = angular.copy(comment.message);
+        $scope.data.commentId = comment.id
+      }
+    }
+
+    $scope.submitEditComment = function () {
+      var comment = {
+        message: $scope.data.message,
+        dd_user: $window.localStorage.getItem('user_id'),
+        dd_post: $window.localStorage.getItem('post_id')
+      };
+      $http({
+        method: 'PUT', url: $config.host + 'comment/' + $scope.data.commentId,
+        headers: {
+          'token': $window.localStorage.getItem('token')
+        },
+        data: comment
+      }).
+        then(function (response) {          
+          $scope.initController();
+          console.log('Success!' + JSON.stringify(response.data))
+        }, function (response) {
+          $scope.initController();
+          console.log('Error!' + JSON.stringify(response.data))
+        });
+    }
+
+    $scope.initController = function () {
+      console.log('Init CommentCtrl');
+      if ($window.localStorage.getItem('logged') !== 'true') {
+        $window.localStorage.clear();
+        $window.location.assign('#/login');
+      }
+      $window.localStorage.setItem('isEditComment', 'false');
+      $scope.data.message = '';
+      $scope.data.name = $window.localStorage.getItem('user_name');
+      $scope.getComments();
+    }
   }])

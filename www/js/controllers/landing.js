@@ -1,10 +1,29 @@
 app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
-  'PopUpService', 'UserService', 'PostService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService, postService) {
+  'PopUpService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
+    $scope.categories = [];
+    $scope.data = {};
+    $scope.data.categorySelected = {};
 
-    $scope.categories = []
-    $scope.data = {}
-    var user = userService.getUserLogged()
+    $scope.filters = [
+      {
+        id: 1,
+        name: 'Recents',
+        value: 'recents'
+      },
+      {
+        id: 2,
+        name: 'Most rated',
+        value: 'most_rated'
+      },
+      {
+        id: 3,
+        name: 'Most commented',
+        value: 'most_commented'
+      }
+    ];
+
+    $scope.data.filterSelected = $scope.filters[0];
 
     function getCategories () {
       $http({
@@ -12,18 +31,25 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       }).
         then(function (response) {
           $scope.categories = response.data
-          $scope.categorySelected = $scope.categories[0]
+          // $scope.data.categorySelected = $scope.categories[0]
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
           console.log('Error!' + JSON.stringify(response.data))
         });
     }
 
-    function getPosts() {
+    $scope.getPosts = function () {
+      if ($scope.data.categorySelected.id) {
+        return $scope.getPostsByCategory();
+      }
+
       $http({
         method: 'GET', url: $config.host + 'post/',
         headers: {
           'token': $window.localStorage.getItem('token')
+        },
+        params: {
+          [$scope.data.filterSelected.value]: true
         }
       }).
         then(function (response) {
@@ -42,9 +68,7 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         }
       }).
         then(function (response) {
-          $window.localStorage.setItem('logged', 'false');
-          userService.resetUserLogged();
-          $window.localStorage.removeItem('token');
+          $window.localStorage.clear();
           $window.location.assign('#/login');
           console.log('Success!' + JSON.stringify(response.data))
         }, function (response) {
@@ -68,19 +92,47 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
     }
 
     $scope.openPost = function (post) {
-      postService.addPostOpen(post);
+      $window.localStorage.setItem('post_id', post.id);
+      $window.localStorage.setItem('post_title', post.title);
+      $window.localStorage.setItem('post_description', post.description);
+      $window.localStorage.setItem('post_dd_category', post.dd_category);
+      $window.localStorage.setItem('post_dd_user', post.dd_user);
+      $window.localStorage.setItem('post_likes', post.likes);
       $window.location.assign('#/post');
+    }
+
+    $scope.getPostsByCategory = function () {
+      $http({
+        method: 'GET', url: $config.host + 'post/category/' + $scope.data.categorySelected.id,
+        headers: {
+          'token': $window.localStorage.getItem('token')
+        },
+        params: {
+          [$scope.data.filterSelected.value]: true
+        }
+      }).
+        then(function (response) {
+          $scope.posts = response.data
+          console.log('Success!' + JSON.stringify(response.data))
+        }, function (response) {
+          console.log('Error!' + JSON.stringify(response.data))
+        });
     }
 
     $scope.initController = function () {
       console.log('Init LandingCtrl');
       if ($window.localStorage.getItem('logged') !== 'true') {
-        userService.resetUserLogged();
+        $window.localStorage.clear();
         $window.location.assign('#/login');
       }
-      user = userService.getUserLogged();
-      $scope.data.name = user.name;
+      $scope.data.name = $window.localStorage.getItem('user_name');
       getCategories();
-      getPosts();
+      $scope.getPosts();
+    }
+
+    $scope.cleanFilters = function () {
+      $scope.data.filterSelected = $scope.filters[0];
+      $scope.data.categorySelected = {};
+      $scope.getPosts();
     }
   }])

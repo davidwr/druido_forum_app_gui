@@ -1,6 +1,6 @@
 app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
-  'PopUpService', 'UserService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService, userService) {
+  'PopUpService',
+  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
 
   $scope.register = function() {
     $window.location.assign('#/register');
@@ -60,7 +60,8 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
       then(function (response) {
         $window.localStorage.setItem('logged', 'true');
         $window.localStorage.setItem('token', response.data.hash);
-        userService.addUserLogged(response.data);
+        $window.localStorage.setItem('user_id', response.data.id);
+        $window.localStorage.setItem('user_name', response.data.name);
         $window.location.assign('#/landing');
         console.log('Success!' + 'Authenticated')
       }, function (response) {

@@ -16,13 +16,18 @@
       <br>
       <div class="menu-box">
         <div class="row">
-          <select class="col">
-            <option selected>Recents</option>
-            <option>Most commented</option>
-            <option>Most rated</option>
+          <select class="col" 
+            ng-options="filter as filter.name for filter in filters track by filter.id" 
+            ng-model="data.filterSelected" 
+            ng-change="getPosts()">
           </select>
-          <div class="col"></div>
-          <select class="col" ng-options="category as category.name for category in categories track by category.id" ng-model="categorySelected">
+          <div class="col">
+            <button class="button button-small icon ion-refresh button-refresh button-calm" ng-click="cleanFilters()"></button>
+          </div>
+          <select class="col" 
+            ng-options="category as category.name for category in categories track by category.id" 
+            ng-model="data.categorySelected"
+            ng-change="getPostsByCategory()">
           </select>
         </div>
         <ion-scroll class="box-posts" direction="y" id="map_content">
@@ -30,6 +35,7 @@
               <img src="img/ionic.png" ng-click="openPost(post)">
               <h2 ng-click="openPost(post)">{{post.title}}</h2>
               <p ng-click="openPost(post)">{{getCategoryLabel(post.dd_category)}}</p>
+              <i class="icon ion-thumbsup"></i> {{post.likes}}
             </div>
           </div>
         </ion-scroll>
