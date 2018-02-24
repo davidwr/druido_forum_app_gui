@@ -50,6 +50,12 @@ A simple forum APP.
 - Ionic JS (The project is a template from Ionic v1.3.4)
 - Android cellphone
 
+### Observations
+
+- Developed and tested using Lenovo Moto G4 Plus
+- The public online API is on AWS EC2 Ubuntu (t2.micro)
+- - The database is on AWS RDS
+
 ## Using the API
 
 Check the API code of Druido App: https://github.com/davidwr/druido_forum_app_api
