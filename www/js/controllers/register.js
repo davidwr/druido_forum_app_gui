@@ -1,9 +1,8 @@
-app.controller('RegisterCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 'PopUpService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popUpService) {
+app.controller('RegisterCtrl', ['$scope', '$http', 'CONFIG', '$timeout', 'PopUpService',
+  function ($scope, $http, $config, $timeout, popUpService) {
 
     $scope.register = function () {
       var dataSend = new FormData();
-      // dataSend.append('image', $scope.image);
       dataSend.append('username', $scope.username);
       dataSend.append('password', $scope.password);
       dataSend.append('name', $scope.name);

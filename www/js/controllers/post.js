@@ -1,6 +1,5 @@
-app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 
-  'PopUpService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
+app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpService', 'LogoutService',
+  function ($scope, $http, $config, $window, popupService, logoutService) {
     $scope.data = {};
 
     function getCategories() {
@@ -16,36 +15,8 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
         });
     }
 
-    $scope.initController = function () {
-      console.log('Init PostCtrl');
-      if ($window.localStorage.getItem('logged') !== 'true') {
-        $window.localStorage.clear();
-        $window.location.assign('#/login');
-      }
-      $scope.data.name = $window.localStorage.getItem('user_name');
-      $scope.data.id = $window.localStorage.getItem('post_id');
-      $scope.data.title = $window.localStorage.getItem('post_title');
-      $scope.data.description = $window.localStorage.getItem('post_description');
-      $scope.data.likes = $window.localStorage.getItem('post_likes');
-      $scope.data.dd_user = $window.localStorage.getItem('post_dd_user');
-      $scope.data.dd_category = $window.localStorage.getItem('post_dd_category');
-      getCategories();
-    }
-
     $scope.logout = function () {
-      $http({
-        method: 'GET', url: $config.host + 'logout/',
-        headers: {
-          'token': $window.localStorage.getItem('token')
-        }
-      }).
-        then(function (response) {
-          $window.localStorage.clear();
-          $window.location.assign('#/login');
-          console.log('Success!' + JSON.stringify(response.data))
-        }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
-        });
+      logoutService.logout();
     }
 
     $scope.openComments = function () {
@@ -66,9 +37,10 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
       }).
         then(function (response) {
           $window.location.assign('#/landing');
-          console.log('Success!' + JSON.stringify(response.data))
+          console.log('Success!' + JSON.stringify(response.data));
         }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
         });
     }
 
@@ -81,4 +53,19 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeou
       $window.location.assign('#/newpost');
     }
 
+    $scope.initController = function () {
+      console.log('Init PostCtrl');
+      if ($window.localStorage.getItem('logged') !== 'true') {
+        $window.localStorage.clear();
+        $window.location.assign('#/login');
+      }
+      $scope.data.name = $window.localStorage.getItem('user_name');
+      $scope.data.id = $window.localStorage.getItem('post_id');
+      $scope.data.title = $window.localStorage.getItem('post_title');
+      $scope.data.description = $window.localStorage.getItem('post_description');
+      $scope.data.likes = $window.localStorage.getItem('post_likes');
+      $scope.data.dd_user = $window.localStorage.getItem('post_dd_user');
+      $scope.data.dd_category = $window.localStorage.getItem('post_dd_category');
+      getCategories();
+    }
   }])

@@ -17,7 +17,7 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
         { text: 'Cancel' },
         {
           text: '<b>Reset</b>',
-          type: 'button-positive',
+          type: 'button button-druido',
           onTap: function (e) {
             if (!$scope.data.email) {
               e.preventDefault();
@@ -66,6 +66,7 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
         console.log('Success!' + 'Authenticated')
       }, function (response) {
         popupService.showAlertPopup('Error!', response.data);
+        console.log('Error!', JSON.stringify(response.data));
       });
   };
 

@@ -1,5 +1,5 @@
-app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window', 'PopUpService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
+app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpService', 'LogoutService',
+  function ($scope, $http, $config, $window, popupService, logoutService) {
     $scope.data = {};
     $scope.categories = [];
 
@@ -18,7 +18,7 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         }
       }).
         then(function (response) {
-          $scope.posts = response.data
+          $scope.posts = response.data;
           popupService.showAlertPopup('Success!', 'New post created!');
           $window.location.assign('#/landing');
         }, function (response) {
@@ -42,7 +42,7 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       }).
         then(function (response) {
           $window.localStorage.setItem('isEditPost', 'false');
-          $scope.posts = response.data
+          $scope.posts = response.data;
           popupService.showAlertPopup('Success!', 'New post created!');
           $window.location.assign('#/landing');
         }, function (response) {
@@ -62,12 +62,12 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         then(function (response) {
           $scope.categories = response.data
           $scope.data.category = $scope.categories[0]
-          console.log('Success!' + JSON.stringify(response.data))
           if (callback) {
             return callback();
           }
         }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
           if (callback) {
             return callback();
           }
@@ -75,19 +75,7 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
     }
 
     $scope.logout = function () {
-      $http({
-        method: 'GET', url: $config.host + 'logout/',
-        headers: {
-          'token': $window.localStorage.getItem('token')
-        }
-      }).
-        then(function (response) {
-          $window.localStorage.clear();
-          $window.location.assign('#/login');
-          console.log('Success!' + JSON.stringify(response.data))
-        }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
-        });
+      logoutService.logout();
     }
 
     $scope.isEdit = function () {

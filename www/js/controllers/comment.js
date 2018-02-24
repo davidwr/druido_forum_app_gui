@@ -1,6 +1,5 @@
-app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeout', '$window',
-  'PopUpService',
-  function ($scope, $http, $config, $ionicPopup, $timeout, $window, popupService) {
+app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpService', 'LogoutService',
+  function ($scope, $http, $config, $window, popupService, logoutService) {
     $scope.data = {};
 
     $scope.getComments = function () {
@@ -11,27 +10,16 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
         }
       }).
         then(function (response) {
-          $scope.comments = response.data
-          console.log('Success!' + JSON.stringify(response.data))
+          $scope.comments = response.data;
+          console.log('Success!' + JSON.stringify(response.data));
         }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
         });
     }
 
     $scope.logout = function () {
-      $http({
-        method: 'GET', url: $config.host + 'logout/',
-        headers: {
-          'token': $window.localStorage.getItem('token')
-        }
-      }).
-        then(function (response) {
-          $window.localStorage.clear();
-          $window.location.assign('#/login');
-          console.log('Success!' + JSON.stringify(response.data))
-        }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
-        });
+      logoutService.logout();
     }
 
     $scope.vote = function (comment, relevance) {
@@ -48,9 +36,10 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       }).
         then(function (response) {
           $window.location.reload(true);
-          console.log('Success!' + JSON.stringify(response.data))
+          console.log('Success!' + JSON.stringify(response.data));
         }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
         });
     }
 
@@ -69,9 +58,10 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       }).
         then(function (response) {
           $scope.getComments();
-          console.log('Success!' + JSON.stringify(response.data))
+          console.log('Success!' + JSON.stringify(response.data));
         }, function (response) {
-          console.log('Error!' + JSON.stringify(response.data))
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
         });
     }
 
@@ -102,10 +92,10 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$tim
       }).
         then(function (response) {          
           $scope.initController();
-          console.log('Success!' + JSON.stringify(response.data))
+          console.log('Success!' + JSON.stringify(response.data));
         }, function (response) {
           $scope.initController();
-          console.log('Error!' + JSON.stringify(response.data))
+          console.log('Error!' + JSON.stringify(response.data));
         });
     }
 

@@ -1,8 +1,8 @@
 const app = angular.module('druido', ['ionic'])
 
 .constant('CONFIG', {
-  host_dev: 'http://localhost:3001/api/v1/',
-  host: 'http://ec2-18-220-34-186.us-east-2.compute.amazonaws.com:3001/api/v1/'
+  host: 'http://localhost:3001/api/v1/',
+  host_prod: 'http://ec2-18-220-34-186.us-east-2.compute.amazonaws.com:3001/api/v1/'
 })
 
 .run(function($ionicPlatform) {
@@ -65,54 +65,6 @@ const app = angular.module('druido', ['ionic'])
     cache: false
   })
 
-  .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
-
-  // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
 });

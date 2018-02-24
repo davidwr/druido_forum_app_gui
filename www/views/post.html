@@ -1,9 +1,9 @@
 <ion-view hide-nav-bar="true" ng-controller="PostCtrl">
   <ion-content scroll="false" class="padding backgroud-druido" ng-init="initController()">
-    <div class="bar bar-header">
-      <img class="image-user" src="img/user.png"></img>
-      <h1 class="title">{{data.name}}</h1>
-      <button class="button icon ion-gear-a" ng-click="logout()"></button>
+    <div class="bar bar-header menu-top">
+      <img class="image-user border-druido" src="img/user.png"></img>
+      <h1 class="title title-menu-top">{{data.name}}</h1>
+      <button class="button button-assertive icon ion-log-out" ng-click="logout()"></button>
     </div>
     <br>
     <br>
@@ -12,16 +12,16 @@
       <div class="item item-divider">
         {{data.title}}
       </div>
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap font-description">
         {{data.description}}
       </div>
       <div class="row">
-        <div class="col">
-          <i class="icon ion-thumbsup"></i> {{data.likes}} <a href="" ng-click="like()">Like</a>   
+        <div class="col like-icon" ng-click="like()">
+          <i class="icon ion-thumbsup"></i> {{data.likes}} <a href=""></a>   
         </div>     
-        <div class="col"><button ng-click="openComments()">Comments</button></div>
+        <div class="col"><button class="button button-small button-submit button-font-white comment-button" ng-click="openComments()">Comments</button></div>
         <div class="col">
-          <button ng-if="checkEditPermission()" ng-click="editPost()">Edit</button>
+          <button class="button button-small button-submit button-font-white edit-button" ng-if="checkEditPermission()" ng-click="editPost()">Edit</button>
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 <ion-view hide-nav-bar="true" ng-controller="LandingCtrl">
   <ion-content scroll="false" ng-init="initController()"  class="padding backgroud-druido">
     <div>
-      <div class="bar bar-header">
-        <img class="image-user" src="img/user.png"></img>
-        <h1 class="title">{{data.name}}</h1>
-        <button class="button icon ion-gear-a" ng-click="logout()"></button>
+      <div class="bar bar-header menu-top">
+        <img class="image-user border-druido" src="img/user.png"></img>
+        <h1 class="title title-menu-top">{{data.name}}</h1>
+        <button class="button button-assertive icon ion-log-out" ng-click="logout()"></button>
       </div>
       <br><br>
       <div class="list list-inset">
@@ -16,32 +16,33 @@
       <br>
       <div class="menu-box">
         <div class="row">
-          <select class="col" 
+          <select class="col druido-radius" 
             ng-options="filter as filter.name for filter in filters track by filter.id" 
             ng-model="data.filterSelected" 
             ng-change="getPosts()">
           </select>
           <div class="col">
-            <button class="button button-small icon ion-refresh button-refresh button-calm" ng-click="cleanFilters()"></button>
+            <button class="button button-small icon ion-refresh button-refresh button-druido" ng-click="cleanFilters()"></button>
           </div>
-          <select class="col" 
+          <select class="col druido-radius" 
             ng-options="category as category.name for category in categories track by category.id" 
             ng-model="data.categorySelected"
             ng-change="getPostsByCategory()">
           </select>
         </div>
-        <ion-scroll class="box-posts" direction="y" id="map_content">
+        <ion-scroll class="box-posts druido-radius" direction="y" id="map_content">
           <div class="item item-avatar" ng-repeat="post in posts | filter:searchPost">
-              <img src="img/ionic.png" ng-click="openPost(post)">
+              <img src="img/post.png" ng-click="openPost(post)">
               <h2 ng-click="openPost(post)">{{post.title}}</h2>
               <p ng-click="openPost(post)">{{getCategoryLabel(post.dd_category)}}</p>
-              <i class="icon ion-thumbsup"></i> {{post.likes}}
+              <div class="likes-post"><i class="icon ion-thumbsup"></i> {{post.likes}}</div>
+              <div class="comments-post"><i class="icon ion-chatboxes"></i> {{post.comments}}</div>
             </div>
           </div>
         </ion-scroll>
       </div>
       <ion-footer no-shadow>
-        <button class="button button-block button-balanced" ng-click="createPost()">Create Post</button>
+        <button class="button button-block button-druido" ng-click="createPost()">Create Post</button>
       </ion-footer>
       </div>
   </ion-content>
