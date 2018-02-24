@@ -4,18 +4,20 @@
       <h1 class="title-druido border-druido">Druido Forum</h1>
       <img class="image-login" src="img/question-mark.png"></img>
     </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="Username" ng-model="username">
-      </label>
-      <label class="item item-input">
-        <input type="password" placeholder="Password" ng-model="password">
-      </label>
-    </div>
-    <button class="button button-block button-druido" ng-click="login()">Login</button>
+    <form>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" placeholder="Username" ng-model="username">
+        </label>
+        <label class="item item-input">
+          <input type="password" placeholder="Password" ng-model="password">
+        </label>
+      </div>
+      <button class="button button-block button-druido button-shadow" ng-click="login()">Login</button>
+    </form>    
     <a class="reset-password" href="" ng-click="resetPassword()">Reset password</a>
     <ion-footer no-shadow>
-      <button class="button button-block button-balanced" ng-click="register()">Sign up</button>  
+    <button class="button button-block button-grey button-shadow" ng-click="register()">Sign up</button>
     </ion-footer>
   </ion-content>
 </ion-view>

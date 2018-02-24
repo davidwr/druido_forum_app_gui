@@ -53,6 +53,26 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpServic
       $window.location.assign('#/newpost');
     }
 
+    $scope.deletePost = function () {
+      $http({
+        method: 'DELETE', url: $config.host + 'post/' + $scope.data.id,
+        headers: {
+          'token': $window.localStorage.getItem('token')
+        }
+      }).
+        then(function (response) {
+          $window.location.assign('#/landing');
+          console.log('Success!' + JSON.stringify(response.data));
+        }, function (response) {
+          popupService.showAlertPopup('Error!', response.data);
+          console.log('Error!' + JSON.stringify(response.data));
+        });
+    }
+
+    $scope.home = function () {
+      $window.location.assign('#/landing');
+    }
+
     $scope.initController = function () {
       console.log('Init PostCtrl');
       if ($window.localStorage.getItem('logged') !== 'true') {

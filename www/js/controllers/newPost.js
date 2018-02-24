@@ -26,6 +26,10 @@ app.controller('NewPostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpSer
         });
     }
 
+    $scope.home = function () {
+      $window.location.assign('#/landing');
+    }
+
     $scope.edit = function () {
       var newPost = {
         title: $scope.data.title,

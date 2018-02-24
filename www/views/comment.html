@@ -2,9 +2,9 @@
   <ion-content scroll="false" ng-init="initController()" class="padding backgroud-druido">
     <div>
       <div class="bar bar-header menu-top">
-        <img class="image-user border-druido" src="img/user.png"></img>
-        <h1 class="title title-menu-top">{{data.name}}</h1>
-        <button class="button button-assertive icon ion-log-out" ng-click="logout()"></button>
+        <a ng-click="home()" class="home"><i class="icon ion-home" ></i></a>
+        <h1 class="title title-menu-top name">{{data.name}}</h1>
+        <button class="button button-assertive icon ion-power" ng-click="logout()"></button>
       </div>
       <br>
       <br>
@@ -25,6 +25,7 @@
         </div>
       </ion-scroll>
       <br>
+      <form>
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
           <input type="text" placeholder="Comment" ng-model="data.message">
@@ -32,10 +33,10 @@
         <button ng-if="!checkEditPermission()" class="button button-small button-submit" ng-click="comment()">
           Submit
         </button>
-        <button ng-if="checkEditPermission()" class="button button-small button-submit" ng-click="submitEditComment()">
-          Edit
-        </button>
+        <button ng-if="checkEditPermission()" class="button button-small button-assertive icon ion-trash-b" ng-click="deleteComment()"></button>
+        <button ng-if="checkEditPermission()" class="button button-small button-submit icon ion-edit" ng-click="submitEditComment()"></button>
       </div>
+      </form>
     </div>
   </ion-content>
 </ion-view>

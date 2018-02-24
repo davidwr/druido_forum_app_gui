@@ -1,5 +1,5 @@
 .backgroud-druido {
-  background: #B2EBF2
+  background: #e2e2e2
 }
 
 .button-druido {
@@ -7,12 +7,27 @@
   color: white;
 }
 
+a {
+  color: #780522;
+}
+
+.button-shadow {
+  -webkit-box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.75);
+}
+
 .border-druido {
-  text-shadow: -1px 0 #00BCD4, 0 1px #00BCD4, 1px 0 #00BCD4, 0 -1px #00BCD4 !important;
+  /* text-shadow: -1px 0 #00BCD4, 0 1px #00BCD4, 1px 0 #00BCD4, 0 -1px #00BCD4 !important; */
 }
 
 .druido-radius {
   border-radius: 4px;
+}
+
+.button-grey {
+  color: #fff;
+  background: #bbc1bd;
 }
 
 .image-login {
@@ -49,7 +64,7 @@
 }
 
 .title-druido {
-  color: #fff;
+  color: #780522;
   margin-top: 30vw;
   margin-left: 18vw;
 }
@@ -103,12 +118,12 @@ textarea {
 }
 
 .title-menu-top {
-  color: #E0F7FA !important;
+  color: #780522 !important;
 }
 
 .menu-top {
   background: #00BCD4;
-  color: #fff;
+  color: #780522;
 }
 
 .scroll{
@@ -121,6 +136,7 @@ textarea {
 
 .button-submit {
   background-color: #80DEEA;
+  color: #fff
 }
 
 .likes-post {
@@ -150,15 +166,34 @@ textarea {
 
 .edit-button {
   position: absolute;
-  left: 325px;
+  left: 300px;
 }
 
 .comment-button {
-  position: absolute;
-  left: 155px;
+  background-color: #780522;
 }
 
 .tabs .tab-item .badge.badge-balanced, .badge.badge-balanced {
   background-color: #00BCD4;
   color: #fff;
+}
+
+.btn-opt {
+  width: 40px;
+}
+
+.ion-home {
+  color: white !important;
+  font-size: 30px;
+  margin-top: 3px;
+  margin-left: 6px;
+}
+
+.name {
+  position: relative !important;
+  margin-left: 120px !important;
+}
+
+.home {
+  margin-top: 3px;
 }

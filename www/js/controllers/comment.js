@@ -77,6 +77,26 @@ app.controller('CommentCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpSer
       }
     }
 
+    $scope.deleteComment = function () {
+      $http({
+        method: 'DELETE', url: $config.host + 'comment/' + $scope.data.commentId,
+        headers: {
+          'token': $window.localStorage.getItem('token')
+        }
+      }).
+        then(function (response) {
+          $scope.initController();
+          console.log('Success!' + JSON.stringify(response.data));
+        }, function (response) {
+          $scope.initController();
+          console.log('Error!' + JSON.stringify(response.data));
+        });
+    }
+
+    $scope.home = function () {
+      $window.location.assign('#/landing');
+    }
+
     $scope.submitEditComment = function () {
       var comment = {
         message: $scope.data.message,

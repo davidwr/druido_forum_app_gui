@@ -1,8 +1,12 @@
 const app = angular.module('druido', ['ionic'])
 
 .constant('CONFIG', {
-  host_dev: 'http://localhost:3001/api/v1/',
-  host: 'http://ec2-18-220-34-186.us-east-2.compute.amazonaws.com:3001/api/v1/'
+  host: 'http://localhost:3001/api/v1/',
+  host_prod: 'http://ec2-18-220-34-186.us-east-2.compute.amazonaws.com:3001/api/v1/'
+})
+
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('responseObserver');
 })
 
 .run(function($ionicPlatform) {
