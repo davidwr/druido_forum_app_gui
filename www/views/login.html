@@ -1,19 +1,23 @@
 <ion-view hide-nav-bar="true">
+  <!-- <div id="loaderDiv" loader>
+    <img src="img/loading.gif" class="ajax-loader" />
+  </div> -->
   <ion-content scroll="false" ng-controller="LoginCtrl" class="padding backgroud-druido">
     <div>
       <h1 class="title-druido border-druido">Druido Forum</h1>
       <img class="image-login" src="img/question-mark.png"></img>
     </div>
-    <form>
+    <form name="loginForm" novalidate>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" placeholder="Username" ng-model="username">
+          <input name="username" type="text" placeholder="Username *" ng-model="username" ng-required="true" ng-maxlength="200">
         </label>
         <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="password">
+          <input name="password" type="password" placeholder="Password *" ng-model="password" ng-required="true" ng-maxlength="200">
         </label>
       </div>
-      <button class="button button-block button-druido button-shadow" ng-click="login()">Login</button>
+      <button class="button button-block button-druido button-shadow" ng-click="login()" 
+        ng-disabled="loginForm.username.$invalid || loginForm.password.$invalid">Login</button>
     </form>    
     <a class="reset-password" href="" ng-click="resetPassword()">Reset password</a>
     <ion-footer no-shadow>

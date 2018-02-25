@@ -9,27 +9,32 @@
     </div>
     <br>
     <br>
+    <form name="newPostForm" novalidate>
     <div class="list">
       <br>
       <label class="item item-input item-register">
-        <input type="text" placeholder="Title" ng-model="data.title">
+        <input name="title" type="text" placeholder="Title *" ng-model="data.title" required ng-maxlength="200">
       </label>
       <br>
       <label class="item item-input">
-        <textarea placeholder="Description" ng-model="data.description"></textarea>
+        <textarea name="description" placeholder="Description *" ng-model="data.description" required></textarea>
       </label>
     </div>
     <select class="col druido-radius" 
       ng-options="category as category.name for category in categories track by category.id" 
-      ng-model="data.category">
+      ng-model="data.category"
+      name="category" required>
     </select>
     <div class="row">
-        <div class="col"><button class="button button-block button-assertive button-shadow" ng-click="cancel()">Cancel</button></div>
-        <div class="col"></div>
-        <div class="col">
-          <button ng-if="!isEdit()" class="button button-block button-druido button-shadow" ng-click="create()">Create</button>
-          <button ng-if="isEdit()" class="button button-block button-druido button-shadow" ng-click="edit()">Edit</button>
-        </div>
+      <div class="col"><button class="button button-block button-assertive button-shadow" ng-click="cancel()">Cancel</button></div>
+      <div class="col"></div>
+      <div class="col">
+        <button ng-if="!isEdit()" class="button button-block button-druido button-shadow" ng-click="create()"
+          ng-disabled="newPostForm.title.$invalid || newPostForm.description.$invalid || newPostForm.category.$invalid">Create</button>
+        <button ng-if="isEdit()" class="button button-block button-druido button-shadow" ng-click="edit()" 
+         ng-disabled="newPostForm.title.$invalid || newPostForm.description.$invalid || newPostForm.category.$invalid">Edit</button>
       </div>
+    </div>
+    </form>
   </ion-content>
 </ion-view>

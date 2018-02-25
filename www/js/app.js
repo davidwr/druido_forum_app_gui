@@ -71,4 +71,4 @@ const app = angular.module('druido', ['ionic'])
 
   $urlRouterProvider.otherwise('/login');
 
-});
+})

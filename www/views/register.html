@@ -1,19 +1,19 @@
 <ion-view hide-nav-bar="true">
   <ion-content scroll="false" ng-controller="RegisterCtrl" class="padding backgroud-druido">
     <h1 class="title-druido">Registration</h1>
-    <form>
+    <form name="registerForm" novalidate>
     <div class="list">
       <label class="item item-input item-register">
-        <input type="email" placeholder="E-mail" ng-model="email"> 
+        <input name="email" type="email" placeholder="E-mail *" ng-model="email" required ng-maxlength="500"> 
       </label>
       <label class="item item-input item-register">
-        <input type="text" placeholder="Name" ng-model="name">
+        <input name="name" type="text" placeholder="Name *" ng-model="name" required ng-maxlength="200">
       </label>
       <label class="item item-input item-register">        
-        <input type="text" placeholder="Username" ng-model="username">
+        <input name="username" type="text" placeholder="Username *" ng-model="username" required ng-maxlength="200">
       </label>
       <label class="item item-input item-register">
-        <input type="password" placeholder="Password" ng-model="password">
+        <input name="password" type="password" placeholder="Password *" ng-model="password" required ng-maxlength="200">
       </label>
       <!-- <label class="item item-input item-register">
         <input type="file" placeholder="Profile Picture" ng-model="image"></input>
@@ -21,7 +21,8 @@
     </div>
 
     <div padding>
-      <button class="button button-block button-druido button-shadow" block ng-click="register()">Sign Up</button>
+      <button class="button button-block button-druido button-shadow" block ng-click="register()"
+       ng-disabled="registerForm.email.$invalid ||registerForm.name.$invalid || registerForm.username.$invalid || registerForm.password.$invalid">Sign Up</button>
     </div>
     </form>
     <a class="go-back" href="#/login" >Go back</a>

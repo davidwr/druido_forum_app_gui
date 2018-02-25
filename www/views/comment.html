@@ -25,16 +25,14 @@
         </div>
       </ion-scroll>
       <br>
-      <form>
+      <form name="commentForm" novalidate>
       <div class="item item-input-inset">
         <label class="item-input-wrapper">
-          <input type="text" placeholder="Comment" ng-model="data.message">
+          <input name="message" type="text" placeholder="Comment message *" ng-model="data.message" required ng-maxlength="300">
         </label>
-        <button ng-if="!checkEditPermission()" class="button button-small button-submit" ng-click="comment()">
-          Submit
-        </button>
-        <button ng-if="checkEditPermission()" class="button button-small button-assertive icon ion-trash-b" ng-click="deleteComment()"></button>
-        <button ng-if="checkEditPermission()" class="button button-small button-submit icon ion-edit" ng-click="submitEditComment()"></button>
+        <button ng-if="!checkEditPermission()" class="button button-small button-submit ion-paper-airplane button-shadow" ng-click="comment()" ng-disabled="commentForm.message.$invalid"></button>
+        <button ng-if="checkEditPermission()" class="button button-small button-assertive button-shadow icon ion-trash-b" ng-click="deleteComment()"></button>
+        <button ng-if="checkEditPermission()" class="button button-small button-submit button-shadow icon ion-edit" ng-click="submitEditComment()" ng-disabled="commentForm.message.$invalid"></button>
       </div>
       </form>
     </div>

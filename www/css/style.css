@@ -17,10 +17,6 @@ a {
   box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.75);
 }
 
-.border-druido {
-  /* text-shadow: -1px 0 #00BCD4, 0 1px #00BCD4, 1px 0 #00BCD4, 0 -1px #00BCD4 !important; */
-}
-
 .druido-radius {
   border-radius: 4px;
 }
@@ -71,10 +67,6 @@ a {
 
 .item-register {
   margin-bottom: 5vw;
-}
-
-.search-landing {
-  /* margin-top: 15vw; */
 }
 
 .bar-header {
@@ -196,4 +188,8 @@ textarea {
 
 .home {
   margin-top: 3px;
+}
+
+.item-input-inset .item-input-wrapper input {
+  width: 230px;
 }
