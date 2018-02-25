@@ -58,6 +58,7 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
       password: $scope.password
     }}).
       then(function (response) {
+        $window.localStorage.clear();
         $window.localStorage.setItem('logged', 'true');
         $window.localStorage.setItem('token', response.data.hash);
         $window.localStorage.setItem('user_id', response.data.id);
@@ -76,5 +77,13 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
 
   if ($window.localStorage.getItem('logged') === 'true') {
     $window.location.assign('#/landing');
+  }
+
+  $scope.initController = function () {
+    if ($window.localStorage.getItem('logged') === 'true') {
+      $window.location.assign('#/landing');
+    } else {
+      $window.localStorage.clear();
+    }
   }
 }])
