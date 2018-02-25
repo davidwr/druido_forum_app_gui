@@ -86,6 +86,7 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpServic
       $scope.data.likes = $window.localStorage.getItem('post_likes');
       $scope.data.dd_user = $window.localStorage.getItem('post_dd_user');
       $scope.data.dd_category = $window.localStorage.getItem('post_dd_category');
+      $scope.data.name = $window.localStorage.getItem('post_dd_user_name');
       getCategories();
     }
   }])

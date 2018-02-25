@@ -79,16 +79,16 @@ a {
 }
 
 .box-comments {
-  height: 65vh;
+  height: 55vh;
   border: 1px solid darkgray;
 }
 
 textarea {
-  height: 80vw;
+  height: 70vw;
 }
 
 .item-text-wrap {
-  height: 70vh;
+  height: 55vh;
 }
 
 .item .icon .icon-badge-up {
@@ -145,6 +145,7 @@ textarea {
 
 .font-description {
   font: normal normal normal 13px/1.4em helveticaneuew01-45ligh,sans-serif;
+
 }
 
 .button-font-white {
@@ -183,7 +184,8 @@ textarea {
 
 .name {
   position: relative !important;
-  margin-left: 120px !important;
+  margin-left: 90px !important;
+  margin-top: -5px !important;
 }
 
 .home {
@@ -192,4 +194,11 @@ textarea {
 
 .item-input-inset .item-input-wrapper input {
   width: 230px;
+}
+
+.post-by {
+  position: absolute;
+  /* left: 100px; */
+  left: 10px;
+  top: 440px;
 }
