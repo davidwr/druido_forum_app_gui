@@ -197,8 +197,5 @@ textarea {
 }
 
 .post-by {
-  position: absolute;
-  /* left: 100px; */
-  left: 10px;
-  top: 440px;
+  font-size: 13px !important;
 }

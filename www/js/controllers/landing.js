@@ -87,6 +87,7 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpSer
       $window.localStorage.setItem('post_dd_user', post.dd_user);
       $window.localStorage.setItem('post_dd_user_name', post.name);
       $window.localStorage.setItem('post_likes', post.likes);
+      $window.localStorage.setItem('post_date', post.created_at);
       $window.location.assign('#/post');
     }
 

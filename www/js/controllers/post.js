@@ -87,6 +87,7 @@ app.controller('PostCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpServic
       $scope.data.dd_user = $window.localStorage.getItem('post_dd_user');
       $scope.data.dd_category = $window.localStorage.getItem('post_dd_category');
       $scope.data.postBy = $window.localStorage.getItem('post_dd_user_name');
+      $scope.data.date = moment($window.localStorage.getItem('post_date')).format('lll');
       getCategories();
     }
   }])
