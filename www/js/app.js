@@ -69,6 +69,12 @@ const app = angular.module('druido', ['ionic'])
     cache: false
   })
 
+  .state('changepassword', {
+    url: '/changepassword',
+    templateUrl: 'views/change_password.html',
+    cache: false
+  })
+
   $urlRouterProvider.otherwise('/login');
 
 })

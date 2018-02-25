@@ -2,8 +2,11 @@
   <ion-content scroll="false" ng-init="initController()"  class="padding backgroud-druido">
     <div>
       <div class="bar bar-header menu-top">
-        <img class="image-user border-druido" src="img/user.png"></img>
-        <h1 class="title title-menu-top">{{data.name}}</h1>
+        <a ng-click="changePassword()">
+          <img class="image-user border-druido" src="img/user.png"></img>
+        </a>
+        <!-- <img ng-click="changePassword()" class="image-user border-druido" src="img/user.png"></img> -->
+        <h1 class="title title-menu-top name">{{data.name}}</h1>
         <button class="button button-assertive icon ion-power" ng-click="logout()"></button>
       </div>
       <br><br>

@@ -126,4 +126,8 @@ app.controller('LandingCtrl', ['$scope', '$http', 'CONFIG', '$window', 'PopUpSer
       $scope.searchPost = '';
       $scope.getPosts();
     }
+
+    $scope.changePassword = function () {
+      $window.location.assign('#/changepassword');
+    }
   }])

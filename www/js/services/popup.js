@@ -16,6 +16,6 @@ app.service('PopUpService', function ($ionicPopup, $timeout) {
 
     $timeout(function () {
       alertPopup.close();
-    }, 10000);
+    }, 60000);
   }
 });

@@ -48,7 +48,7 @@ app.controller('LoginCtrl', ['$scope', '$http', 'CONFIG', '$ionicPopup', '$timeo
 
     $timeout(function () {
       resetPasswordPopup.close();
-    }, 10000);
+    }, 60000);
   }
 
   $scope.login = function () {
