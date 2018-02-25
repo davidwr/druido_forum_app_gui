@@ -36,6 +36,7 @@ A simple forum APP.
 - Unlock your Android and connect it to your machine by USB.
 - Now use the command `ionic cordova run android` to run the application.
 - - Sometimes it throws permission errors, if it happens try again.
+- If you want to build the .apk file use `ionic cordova build android`
 
 ### Prerequisites (USER)
 
